@@ -1,5 +1,5 @@
 import pytest
-from Exam_4 import get_kmers, collect_kmers, find_optimal_k  # Adjust 'your_module' to your actual module name
+from Exam_4 import get_kmers, collect_kmers, find_optimal_k  
 
 def test_get_kmers():
     sequence = "ATCGATCG"
@@ -12,7 +12,6 @@ def test_get_kmers():
     }
     assert get_kmers(sequence, k) == expected
 
-    # Edge cases
     assert get_kmers("", 3) == {}
     assert get_kmers("ATCG", 5) == {}
 
