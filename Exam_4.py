@@ -60,7 +60,7 @@ def find_optimal_k(filename):
         all_unique = all(len(next_kmers) == 1 for next_kmers in kmers.values())
         if all_unique:
             return k  # Return the smallest k that meets the condition
-        k += 1  # Increment k and check again
+        k += 1  
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
