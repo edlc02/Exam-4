@@ -63,9 +63,8 @@ def find_optimal_k(filename):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python kmer_analysis.py <filename>")  # Command-line usage instruction
+        print("Usage: python Exam_4.py <filename>")  # Command-line usage instruction
     else:
         filename = sys.argv[1]
         optimal_k = find_optimal_k(filename)  # Find the optimal k for the given file
         print(f"The optimal k is: {optimal_k}")  # Print the optimal k
-
