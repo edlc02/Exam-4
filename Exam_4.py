@@ -12,13 +12,15 @@ def get_kmers(sequence, k):
         dict: Dict. where each key is a k-mer, and each value is a set of k-mers.
     """
     kmers = {}
-    for i in range(len(sequence) - k):
-        kmer = sequence[i:i+k]  # Current k-mer
-        next_kmer = sequence[i+1:i+1+k]  # k-mer that follows the current k-mer
-        if kmer in kmers:
-            kmers[kmer].add(next_kmer)  # Add the next k-mer to the set of k-mers if already exists
-        else:
-            kmers[kmer] = {next_kmer}  # Initialize a new set for new k-mers
+    if k > 0 and len(sequence) >= k:
+        for i in range(len(sequence) - k + 1):
+            kmer = sequence[i:i+k]  # Current k-mer
+            if i + k < len(sequence):
+                next_kmer = sequence[i+1:i+1+k]  # k-mer that follows the current k-mer
+                if kmer in kmers:
+                    kmers[kmer].add(next_kmer)  # Add the next k-mer to the set of k-mers if already exists
+                else:
+                    kmers[kmer] = {next_kmer}  # Initialize a new set for new k-mers
     return kmers
 
 def collect_kmers(filename, k):
@@ -51,12 +53,11 @@ def find_optimal_k(filename):
     """
     k = 1  # Start checking from k=1
     while True:
-        all_unique = True
         kmers = collect_kmers(filename, k)
-        for next_kmers in kmers.values():
-            if len(next_kmers) != 1:
-                all_unique = False  # Not all k-mers have a unique k-mer
-                break
+        if not kmers:
+            k += 1
+            continue
+        all_unique = all(len(next_kmers) == 1 for next_kmers in kmers.values())
         if all_unique:
             return k  # Return the smallest k that meets the condition
         k += 1  # Increment k and check again
